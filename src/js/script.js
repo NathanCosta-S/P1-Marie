@@ -1,160 +1,77 @@
-const menuToggle = document.querySelector('.menu-toggle');
-const navLinks = document.querySelector('nav.nav-links');
-
-menuToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    menuToggle.classList.toggle('active');
-});
-
-function appendValue(valor) {
+  // Função para adicionar valores no visor da calculadora
+  function appendValue(valor) {
     document.getElementById('display').value += valor;
+  }
+
+  function calcular() {
+    let expressao = document.getElementById('display').value;
+    try {
+      let resultado = eval(expressao); 
+      document.getElementById('display').value = resultado;
+    } catch (erro) {
+      document.getElementById('display').value = 'Erro';
+    }
   }
 
   function limpar() {
     document.getElementById('display').value = '';
   }
 
-  function calcular() {
-    try {
-      const resultado = eval(document.getElementById('display').value);
-      document.getElementById('display').value = resultado;
-    } catch (e) {
-      alert('Expressão inválida');
-    }
-  };
+// jogo da memoria
+   const pares = [
+    {pergunta: '5+5', resposta: '10'},
+    {pergunta: '8x6', resposta: '48'},
+    {pergunta: '35/5', resposta: '7'},
+    {pergunta: '122x5', resposta: '610'},
+    {pergunta: '355-85', resposta: '270'},
+    {pergunta: '3x+5=11', resposta: 'x=2'},
+    {pergunta: '5x+2=17', resposta: 'x=3'},
+    {pergunta: '4x−8=12', resposta: 'x=5'}
+];
+let cartas = [];
+pares.forEach(par => {
+    cartas.push({texto: par.pergunta, valor: par.resposta});
+    cartas.push({texto: par.resposta, valor: par.resposta});
+});
+cartas.sort(() => 0.5 - Math.random());
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const gameBoard = document.getElementById('gameBoard');
-    const restartButton = document.getElementById('restartButton');
-    
-    let cards = [];
-    let flippedCards = [];
-    let canFlip = true;
-    
-    // URLs das imagens para os pares (8 pares = 16 cartas)
-    const imageUrls = [
-        '../src/img/html.png',
-        '../src/img/C.png',
-        '../src/img/hub.png',
-        '../src/img/JS.png',
-        '../src/img/TS.png',
-        '../src/img/corel.png',
-        '../src/img/GIT.png',
-        '../src/img/css.png'
-    ];
-    
-    // Inicializar o jogo
-    function initGame() {
-        // Resetar variáveis
-        cards = [];
-        flippedCards = [];
-        canFlip = true;
-        
-        // Limpar tabuleiro
-        gameBoard.innerHTML = '';
-        
-        // Criar pares de cartas
-        const cardValues = [...imageUrls, ...imageUrls];
-        
-        // Embaralhar cartas
-        shuffleArray(cardValues);
-        
-        // Criar elementos das cartas
-        cardValues.forEach((value, index) => {
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.dataset.value = value;
-            card.dataset.index = index;
-            card.addEventListener('click', flipCard);
+const tabuleiro = document.getElementById('tabuleiro');
+let cartaVirada = null;
+let bloqueio = false;
+
+cartas.forEach(c => {
+    const carta = document.createElement('div');
+    carta.classList.add('carta');
+    carta.dataset.valor = c.valor;
+    carta.dataset.texto = c.texto;
+    carta.innerText = '';
+
+    carta.addEventListener('click', () => {
+        if (bloqueio || carta.classList.contains('virada')) return;
+
+        carta.innerText = carta.dataset.texto;
+        carta.classList.add('virada');
+
+        if (!cartaVirada) {
+            cartaVirada = carta;
+        } else {
+            if (carta.dataset.valor === cartaVirada.dataset.valor) {
             
-            // Parte de trás da carta (verso)
-            const back = document.createElement('div');
-            back.className = 'back';
-            
-            // Parte da frente da carta (imagem)
-            const front = document.createElement('div');
-            front.className = 'front';
-            const img = document.createElement('img');
-            img.src = value;
-            img.alt = 'Imagem da carta';
-            front.appendChild(img);
-            
-            card.appendChild(back);
-            card.appendChild(front);
-            
-            gameBoard.appendChild(card);
-            cards.push({
-                element: card,
-                value: value,
-                flipped: false,
-                matched: false
-            });
-        });
-    }
-    
-    // Embaralhar array
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-    
-    // Virar carta
-    function flipCard() {
-        if (!canFlip) return;
-        
-        const index = parseInt(this.dataset.index);
-        const card = cards[index];
-        
-        // Não fazer nada se a carta já estiver virada ou combinada
-        if (card.flipped || card.matched) return;
-        
-        // Virar a carta
-        card.flipped = true;
-        this.classList.add('flipped');
-        flippedCards.push(card);
-        
-        // Verificar se duas cartas estão viradas
-        if (flippedCards.length === 2) {
-            canFlip = false;
-            
-            // Verificar se as cartas são iguais
-            if (flippedCards[0].value === flippedCards[1].value) {
-                // Par encontrado
-                flippedCards[0].matched = true;
-                flippedCards[1].matched = true;
-                
-                flippedCards[0].element.classList.add('matched');
-                flippedCards[1].element.classList.add('matched');
-                
-                flippedCards = [];
-                canFlip = true;
-                
-                // Verificar se o jogo terminou
-                if (cards.every(card => card.matched)) {
-                    setTimeout(() => {
-                        alert('Parabéns! Você completou o jogo!');
-                    }, 500);
-                }
+                cartaVirada = null;
             } else {
-                // Cartas não combinam - virar de volta após um pequeno atraso
+              
+                bloqueio = true;
                 setTimeout(() => {
-                    flippedCards.forEach(card => {
-                        card.flipped = false;
-                        card.element.classList.remove('flipped');
-                    });
-                    flippedCards = [];
-                    canFlip = true;
+                    carta.innerText = '';
+                    carta.classList.remove('virada');
+                    cartaVirada.innerText = '';
+                    cartaVirada.classList.remove('virada');
+                    cartaVirada = null;
+                    bloqueio = false;
                 }, 1000);
             }
         }
-    }
-    
-    // Reiniciar o jogo
-    restartButton.addEventListener('click', initGame);
-    
-    // Iniciar o jogo quando a página carregar
-    initGame();
+    });
+
+    tabuleiro.appendChild(carta);
 });

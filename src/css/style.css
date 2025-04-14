@@ -16,9 +16,7 @@ body {
     justify-content: space-between;
     padding: 20px 60px;
     border-bottom: 1px solid #ffffff;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+
 }
 
 .logo {
@@ -96,4 +94,33 @@ body {
         flex-direction: column;
         gap: 25px;
     }
+}
+
+
+.section {
+    padding: 2rem;
+    margin: 2rem;
+    border-radius: 8px;
+    font-size: 20px;
+}
+
+p {
+    margin-bottom: 1rem;
+    text-size-adjust: 20px;
+}
+
+.quadratica {
+    border-left: 5px solid #3498db;
+}
+
+.exponencial {
+    border-left: 5px solid #2ecc71;
+}
+
+.equacao1grau {
+    border-left: 5px solid #e67e22;
+}
+
+.equacao2grau {
+    border-left: 5px solid #9b59b6;
 }
