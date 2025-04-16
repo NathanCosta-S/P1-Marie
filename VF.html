@@ -8,7 +8,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
     <link rel="stylesheet" href="src/css/style.css" />
-    <link rel="stylesheet" href="src/css/memoria.css" />
+    <link rel="stylesheet" href="src/css/game.css" />
     <title>P1-Marie</title>
   </head>
   <body>
@@ -28,11 +28,26 @@
       </div>
     </header>
     <main class="container">
-      <h1>Jogo da Memória</h1>
-      <p>Versão Programação</p>
-      <div class="tabuleiro" id="tabuleiro"></div>
-    </main>
+      <h1>Jogo Verdadeiro ou Falso</h1>
+      <p>Matemática Simples</p>
+      <div class="jogo">
+        <h1>Verdadeiro ou Falso?</h1>
 
-    <script src="src/js/script2.js"></script>
+        <button id="startBtn" onclick="iniciarJogo()">Iniciar Jogo</button>
+
+        <div id="jogo" style="display: none">
+          <div id="statement">5 + 3 = 8</div>
+          <div class="buttons">
+            <button onclick="responder(true)">Verdadeiro</button>
+            <button onclick="responder(false)">Falso</button>
+          </div>
+          <p>Pontuação: <span id="score">0</span></p>
+          <p>Tempo: <span id="time">60</span> segundos</p>
+          <div id="feedback"></div>
+        </div>
+      </div>
+    </main>
+    <script src="src/js/script.js"></script>
+    <script src="src/js/script3.js"></script>
   </body>
 </html>

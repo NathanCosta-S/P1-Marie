@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.jogo {
+  background-color: #500064;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ccc;
+  text-align: center;
+  width: 320px;
+}
+
+#statement {
+  font-size: 24px;
+  margin: 20px 0;
+}
+
+.buttons button,
+#startBtn {
+  padding: 10px 20px;
+  margin: 10px 5px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+#feedback {
+  margin-top: 15px;
+  font-weight: bold;
+}

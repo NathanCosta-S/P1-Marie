@@ -9,7 +9,7 @@ main {
 }
 
 section.calculadora {
-    background-color: #ffffff;
+    background-color: #500064;
     padding: 2rem;
     border-radius: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
@@ -56,5 +56,5 @@ input#display {
 
 .botoes button#limpar {
     grid-column: span 4;
-    background-color: #500064;
+    background-color: #5c5c5c;
 }
