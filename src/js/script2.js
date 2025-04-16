@@ -1,14 +1,15 @@
  // Lista de imagens (coloque o caminho correto das suas PNGs)
  const imagens = [
-  '../img/css.png',
-  '../img/C.png',
-  '../img/corel.png',
-  '../img/GIT.png',
-  '../img/html.png',
-  '../img/hub.png',
-  '../img/JS.png',
-  '../img/TS.png'
+  '../src/img/css.png',
+  '../src/img/C.png',
+  '../src/img/corel.png',
+  '../src/img/GIT.png',
+  '../src/img/html.png',
+  '../src/img/hub.png',
+  '../src/img/JS.png',
+  '../src/img/TS.png'
 ];
+
 
 
   // Duplicar imagens para formar pares
